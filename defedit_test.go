@@ -1,4 +1,4 @@
-package defeditor
+package defedit
 
 import (
 	"testing"
