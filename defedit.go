@@ -24,12 +24,12 @@ func Open() (string, error) {
 	path, err := exec.LookPath("xdg-open")
 	fmt.Printf("%s\n", path)
 
-	wd, _ := os.Getwd()
+	//wd, _ := os.Getwd()
 	cmd := exec.Command(path, tmpFile.Name())
 	err = cmd.Run()
 	if err != nil {
 		fmt.Printf("%s\n", err)
 		return "", err
 	}
-	return wd + tmpFile.Name(), nil
+	return tmpFile.Name(), nil
 }
