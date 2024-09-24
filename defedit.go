@@ -17,7 +17,8 @@ import (
 // Open создаёт временный файл и открывает предпочтительный файловый редактор
 // (в ubuntu это "Image viewer".)
 func Open() (*os.File, error) {
-	tmpFile, err := os.Create(os.TempDir() + "/tmp_file_" + strconv.Itoa(rand.Int()))
+	tmp := "/tmp_file_" + strconv.Itoa(rand.Int())
+	tmpFile, err := os.Create(os.TempDir() + tmp)
 	if err != nil {
 		os.Exit(1)
 	}
@@ -27,8 +28,13 @@ func Open() (*os.File, error) {
 	cmd := exec.Command(path, tmpFile.Name())
 	err = cmd.Run()
 	if err != nil {
-		fmt.Printf("%s\n", err)
+		fmt.Printf("cmd.Run(): %s\n", err)
 		return nil, err
 	}
-	return tmpFile, nil
+	f, err := os.Open(os.TempDir() + tmp)
+	if err != nil {
+		fmt.Printf("os.Open: %s\n", err)
+		return nil, err
+	}
+	return f, nil
 }
