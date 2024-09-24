@@ -28,7 +28,7 @@ func Open() (*os.File, error) {
 	err = cmd.Run()
 	if err != nil {
 		fmt.Printf("%s\n", err)
-		return "", err
+		return nil, err
 	}
 	return tmpFile, nil
 }
